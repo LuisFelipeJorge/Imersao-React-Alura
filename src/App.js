@@ -1,19 +1,30 @@
 import React from 'react';
+import styled from 'styled-components';
+
 import Menu from './Components/Menu';
 import BannerMain from './Components/BannerMain';
 import Carousel from './Components/Carousel';
 import Footer from './Components/Footer';
 import dadosIniciais from './data/dados_iniciais.json';
 
+const AppWrapper = styled.div`
+  background: var(--grayDark);
+
+  padding-top:94px;
+  @media (max-width: 800px){
+    padding-top:40px;
+  }
+`;
+
 function App() {
   return (
-    <div style={{background: "#141414" }}>
+    <AppWrapper>
       <Menu/>
 
       <BannerMain
         videoTitle={dadosIniciais.categorias[0].videos[0].titulo}
         url={dadosIniciais.categorias[0].videos[0].url}
-        videoDescription="O que é Front-end?"
+        videoDescription=""
       />
       
       <Carousel
@@ -42,7 +53,7 @@ function App() {
       />
 
       <Footer/>
-    </div>
+    </AppWrapper>
   );
 }
 
