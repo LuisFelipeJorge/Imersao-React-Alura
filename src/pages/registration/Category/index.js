@@ -2,16 +2,16 @@ import React from 'react';
 import PageDefault from '../../../Components/PageDefault'
 import { Link } from 'react-router-dom';
 
-function VideoRegistration() {
+function CategoryRegistration() {
   return(
     <PageDefault>
-      <h1>Video Registration</h1>
+      <h1>Category Registration</h1>
       
-      <Link to="/registration/category">
-        Category Registration
+      <Link to="/">
+        Go Home
       </Link>
     </PageDefault>
   );
 }
 
-export default VideoRegistration;
+export default CategoryRegistration;
