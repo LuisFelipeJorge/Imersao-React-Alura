@@ -11,6 +11,8 @@ function Pag404() {
   return(
       <div>
         <h1>Pag Not Found! Error 404</h1>
+        <h2>Why don't you try to learn how to build a flappy bird game while we solve the problem.</h2>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/jOAU81jdi-c" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
   );
 }
