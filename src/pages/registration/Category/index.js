@@ -30,29 +30,18 @@ function CategoryRegistration() {
   }
 
   useEffect(() => {
-    const URL = window.location.hostname.includes('localhost')
-      ? 'http://localhost:8080/categories'
-      : 'https://jorgeflixapp.herokuapp.com/categories';
-
-    fetch(URL)
-      .then(async (res) => {
-        const result = await res.json();
-        setCategories([
-          ...result,
-        ]);
-      });
-
-    // setTimeout(() => {
-    //   setCategories([
-    //     ...categories,
-    //     {
-    //       id: 1,
-    //       name: 'Front End',
-    //       description: 'A test category',
-    //       color: '#cbd1ff',
-    //     },
-    //   ]);
-    // }, 4 * 1000);
+    if (window.location.href.includes('localhost')) {
+      const URL = 'http://localhost:8080/categories';
+      fetch(URL)
+        .then(async (res) => {
+          if (res.ok) {
+            const result = await res.json();
+            setCategories(result);
+            return;
+          }
+          // throw new Error('Couldn\'t get data');
+        });
+    }
   }, []);
 
   return (
