@@ -1,0 +1,10 @@
+{
+  "categories":[
+    {
+      "id": 1,
+      "name": "Front End",
+      "description": "A test category",
+      "color": "#cbd1ff"
+    }
+  ]
+}

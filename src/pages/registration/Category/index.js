@@ -1,81 +1,91 @@
-import React, { useState } from 'react';
-import PageDefault from '../../../Components/PageDefault'
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import PageDefault from '../../../Components/PageDefault';
 import FormField from '../../../Components/FormField';
+import Button from '../../../Components/Button';
 
 function CategoryRegistration() {
   const initialValues = {
     name: '',
     description: '',
     color: '',
-  }
+  };
+
+  // [state, function to updade the state]
   const [categories, setCategories] = useState([]);
   const [values, setValues] = useState(initialValues);
-  
-  
+
   function setValue(key, value) {
     setValues({
       ...values,
       [key]: value,
-    })
+    });
   }
 
-  function handleChange(eventInfo){
-    // const { getAttribute, value } = eventInfo.target;
-    // setValue(
-    //   getAttribute('name'),
-    //   value);
+  function handleChange(eventInfo) {
     setValue(
       eventInfo.target.getAttribute('name'),
-      eventInfo.target.value
+      eventInfo.target.value,
     );
   }
-  
-  return(
+
+  useEffect(() => {
+    const URL = 'http://localhost:8080/categories';
+
+    fetch(URL)
+      .then(async (res) => {
+        const result = await res.json();
+        setCategories([
+          ...result,
+        ]);
+      });
+
+    // setTimeout(() => {
+    //   setCategories([
+    //     ...categories,
+    //     {
+    //       id: 1,
+    //       name: 'Front End',
+    //       description: 'A test category',
+    //       color: '#cbd1ff',
+    //     },
+    //   ]);
+    // }, 4 * 1000);
+  }, []);
+
+  return (
     <PageDefault>
-      <h1>Category Registration: {values.name}</h1>
+      <h1>
+        Category Registration:
+        {values.name}
+      </h1>
       <form onSubmit={function handleSubmit(eventInfo) {
         eventInfo.preventDefault(); // SPA practice: the page is not reloaded when the form is submitted
         setCategories([
-          ...categories, //maintains a copy of the list in a previous state before a change occurred
-          values // add this value to the new state
-        ]);  
+          ...categories, // maintains a copy of the list in a previous state before a change occurred
+          values, // add this value to the new state
+        ]);
         setValues(initialValues);
-      }}>
+      }}
+      >
 
-        <FormField 
+        <FormField
           label="Nome da Categoria"
           type="text"
           name="name"
           value={values.name}
           onChange={handleChange}
         />
-        
-        {/* <div>
-          <label>
-            Nome da Categoria:
-            <input
-              type="text"
-              name="name"
-              value={values.name}
-              onChange={handleChange}
-            />
-          </label>
-        </div>   */}
 
-        <div>        
-          <label>
-            Descrição:
-            <textarea
-              type="text"
-              name="description"
-              value={values.description}
-              onChange={handleChange}
-            />
-          </label>
-        </div>
+        <FormField
+          label="Descrição"
+          type="textarea"
+          name="description"
+          value={values.description}
+          onChange={handleChange}
+        />
 
-        <FormField 
+        <FormField
           label="Cor"
           type="color"
           name="color"
@@ -83,31 +93,22 @@ function CategoryRegistration() {
           onChange={handleChange}
         />
 
-        {/* <div>
-          <label>
-            Cor:
-            <input
-              type="color"
-              name="color"
-              value={values.color}
-              onChange={handleChange}
-            />
-          </label>
-        </div> */}
-
-        <button>
+        <Button>
           Cadastrar
-        </button>
+        </Button>
       </form>
+      {categories.length === 0 && (
+        <div>
+          Loading ...
+        </div>
+      )}
 
       <ul>
-        {categories.map((category, index) => {
-          return(
-            <li key={`${category} ${index}`}>
-              {category.name}
-            </li>
-          );
-        })}
+        {categories.map((category) => (
+          <li key={`${category.name}`}>
+            {category.name}
+          </li>
+        ))}
       </ul>
 
       <Link to="/">
