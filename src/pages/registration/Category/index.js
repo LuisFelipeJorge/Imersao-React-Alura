@@ -30,7 +30,9 @@ function CategoryRegistration() {
   }
 
   useEffect(() => {
-    const URL = 'http://localhost:8080/categories';
+    const URL = window.location.hostname.includes('localhost')
+      ? 'http://localhost:8080/categories'
+      : 'https://jorgeflixapp.herokuapp.com/categories';
 
     fetch(URL)
       .then(async (res) => {
