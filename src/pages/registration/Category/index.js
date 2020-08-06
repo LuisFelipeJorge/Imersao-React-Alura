@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+// import { func } from 'prop-types';
 import PageDefault from '../../../Components/PageDefault';
 import FormField from '../../../Components/FormField';
 import Button from '../../../Components/Button';
+import useForm from '../../../hooks/useForm';
 
 function CategoryRegistration() {
   const initialValues = {
@@ -11,37 +13,37 @@ function CategoryRegistration() {
     color: '',
   };
 
+  const { values, handleChange, clearForm } = useForm(initialValues);
+
   // [state, function to updade the state]
   const [categories, setCategories] = useState([]);
-  const [values, setValues] = useState(initialValues);
 
-  function setValue(key, value) {
-    setValues({
-      ...values,
-      [key]: value,
-    });
-  }
-
-  function handleChange(eventInfo) {
-    setValue(
-      eventInfo.target.getAttribute('name'),
-      eventInfo.target.value,
-    );
-  }
+  // useEffect(() => {
+  //   if (window.location.href.includes('localhost')) {
+  //     const URL = 'http://localhost:8080/categories';
+  //     fetch(URL)
+  //       .then(async (res) => {
+  //         if (res.ok) {
+  //           const result = await res.json();
+  //           setCategories(result);
+  //         }
+  //         // throw new Error('Couldn\'t get data');
+  //       });
+  //   }
+  // }, []);
 
   useEffect(() => {
-    if (window.location.href.includes('localhost')) {
-      const URL = 'http://localhost:8080/categories';
-      fetch(URL)
-        .then(async (res) => {
-          if (res.ok) {
-            const result = await res.json();
-            setCategories(result);
-            return;
-          }
-          // throw new Error('Couldn\'t get data');
-        });
-    }
+    const URL = window.location.hostname.includes('localhost')
+      ? 'http://localhost:8080/categories'
+      : 'https://jorgeflixapp.herokuapp.com/categories';
+    // E a ju ama variáveis
+    fetch(URL)
+      .then(async (res) => {
+        const result = await res.json();
+        setCategories([
+          ...result,
+        ]);
+      });
   }, []);
 
   return (
@@ -56,7 +58,7 @@ function CategoryRegistration() {
           ...categories, // maintains a copy of the list in a previous state before a change occurred
           values, // add this value to the new state
         ]);
-        setValues(initialValues);
+        clearForm();
       }}
       >
 
@@ -96,8 +98,8 @@ function CategoryRegistration() {
 
       <ul>
         {categories.map((category) => (
-          <li key={`${category.name}`}>
-            {category.name}
+          <li key={`${category.titulo}`}>
+            {category.titulo}
           </li>
         ))}
       </ul>
