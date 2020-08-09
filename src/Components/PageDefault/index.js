@@ -1,8 +1,8 @@
 import React from 'react';
+import style, {css} from 'styled-components';
+import styled from 'styled-components';
 import Menu from '../Menu';
 import Footer from '../Footer';
-import style from 'styled-components';
-import styled from 'styled-components';
 
 const Main = styled.main`
   background-color: var(--black);
@@ -11,21 +11,24 @@ const Main = styled.main`
   padding-top: 100px;
   padding-left: 5%;
   padding-right: 5%;
+
+  ${({ paddingAll }) => css`
+    padding: ${paddingAll};
+  `}
   @media( max-width: 800px){
     padding-top: 50px;
   }
 `;
 
-
-function PageDefault({ children }) {
-  return(
-    <>   
+function PageDefault({ children, paddingAll }) {
+  return (
+    <>
       <Menu />
-        <Main>
-          {children}          
-        </Main>
+      <Main paddingAll={paddingAll}>
+        {children}
+      </Main>
       <Footer />
-    </>  
+    </>
   );
 }
 
