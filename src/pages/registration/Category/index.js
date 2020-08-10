@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-// import { func } from 'prop-types';
 import PageDefault from '../../../Components/PageDefault';
 import FormField from '../../../Components/FormField';
 import Button from '../../../Components/Button';
@@ -18,24 +17,10 @@ function CategoryRegistration() {
   // [state, function to updade the state]
   const [categories, setCategories] = useState([]);
 
-  // useEffect(() => {
-  //   if (window.location.href.includes('localhost')) {
-  //     const URL = 'http://localhost:8080/categories';
-  //     fetch(URL)
-  //       .then(async (res) => {
-  //         if (res.ok) {
-  //           const result = await res.json();
-  //           setCategories(result);
-  //         }
-  //         // throw new Error('Couldn\'t get data');
-  //       });
-  //   }
-  // }, []);
-
   useEffect(() => {
     const URL = window.location.hostname.includes('localhost')
-      ? 'http://localhost:8080/categories'
-      : 'https://jorgeflixapp.herokuapp.com/categories';
+      ? 'http://localhost:8080/categorias'
+      : 'https://jorgeflixapp.herokuapp.com/categorias';
     // E a ju ama variáveis
     fetch(URL)
       .then(async (res) => {
@@ -87,7 +72,7 @@ function CategoryRegistration() {
         />
 
         <Button>
-          Cadastrar
+          Register
         </Button>
       </form>
       {categories.length === 0 && (

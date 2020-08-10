@@ -1,21 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-
-import Menu from '../../Components/Menu';
 import BannerMain from '../../Components/BannerMain';
 import Carousel from '../../Components/Carousel';
-import Footer from '../../Components/Footer';
 import categoriesRepository from '../../repositories/categories';
 import PageDefault from '../../Components/PageDefault';
-
-const HomeWrapper = styled.div`
-  background: var(--grayDark);
-
-  padding-top:94px;
-  @media (max-width: 800px){
-    padding-top:40px;
-  }
-`;
 
 function Home() {
   const [initialData, setInitialData] = useState([]);
@@ -33,7 +20,7 @@ function Home() {
   }, []);
 
   return (
-    <PageDefault paddingAll={5}>
+    <PageDefault paddingAll={1}>
 
       {initialData.length === 0 && (<div>Loading...</div>)}
 
